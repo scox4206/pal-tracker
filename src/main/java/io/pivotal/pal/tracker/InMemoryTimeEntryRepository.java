@@ -11,7 +11,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository{
     private long counter = 1;
 
     public TimeEntry create(TimeEntry timeEntry) {
-        long timeEntryId = generateId();
+        Long timeEntryId = generateId();
 
         TimeEntry timeEntryToSave = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(),
                 timeEntry.getDate(), timeEntry.getHours());
@@ -19,11 +19,11 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository{
         return timeEntryToSave;
     }
 
-    private long generateId() {
+    private Long generateId() {
         return counter++;
     }
 
-    public TimeEntry find(long id) {
+    public TimeEntry find(Long id) {
         
         return timeEntryMap.get(id);
     }
@@ -33,7 +33,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository{
        return new ArrayList<TimeEntry>(timeEntryMap.values());
     }
 
-    public TimeEntry update(long id, TimeEntry timeEntry) {
+    public TimeEntry update(Long id, TimeEntry timeEntry) {
 
 
 
@@ -50,7 +50,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository{
 
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         this.timeEntryMap.remove(id);
     }
 }

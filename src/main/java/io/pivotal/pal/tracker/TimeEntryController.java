@@ -2,11 +2,11 @@ package io.pivotal.pal.tracker;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/time-entries")
 @RestController
 public class TimeEntryController {
 
@@ -17,14 +17,14 @@ public class TimeEntryController {
         this.timeEntryRepository = timeEntryRepository;
     }
 
-    //@RequestMapping(path = "/create")
-    public ResponseEntity create(TimeEntry timeEntryToCreate) {
+    @PostMapping
+    public ResponseEntity create(@RequestBody TimeEntry timeEntryToCreate) {
         return new ResponseEntity(timeEntryRepository.create(timeEntryToCreate), HttpStatus.CREATED);
 
     }
 
-    //@RequestMapping(path = "/read")
-    public ResponseEntity<TimeEntry> read(long timeEntryId) {
+    @GetMapping ("/{id}")
+    public ResponseEntity<TimeEntry> read(@PathVariable("id") Long timeEntryId) {
 
         TimeEntry timeEntry= timeEntryRepository.find(timeEntryId);
 
@@ -35,11 +35,13 @@ public class TimeEntryController {
         }
     }
 
+    @GetMapping
     public ResponseEntity<List<TimeEntry>> list() {
         return new ResponseEntity(timeEntryRepository.list(), HttpStatus.OK);
     }
 
-    public ResponseEntity update(long timeEntryId, TimeEntry expected) {
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable("id") Long timeEntryId, @RequestBody TimeEntry expected) {
 
         TimeEntry timeEntry= timeEntryRepository.update(timeEntryId,expected);
 
@@ -50,7 +52,8 @@ public class TimeEntryController {
         }
     }
 
-    public ResponseEntity<TimeEntry> delete(long timeEntryId) {
+    @DeleteMapping ("/{id}")
+    public ResponseEntity<TimeEntry> delete(@PathVariable("id") Long timeEntryId) {
         timeEntryRepository.delete(timeEntryId);
 
         return new ResponseEntity(timeEntryRepository.find(timeEntryId), HttpStatus.NO_CONTENT);

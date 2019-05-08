@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class TimeEntry {
 
-    private long id;
+    private Long id;
     private long projectId;
     private long userId;
     private LocalDate date;
@@ -15,7 +15,7 @@ public class TimeEntry {
 
     }
 
-    public TimeEntry(long id, long projectId, long userId, LocalDate date, int hours) {
+    public TimeEntry(Long id, long projectId, long userId, LocalDate date, int hours) {
         this.id = id;
         this.projectId = projectId;
         this.userId = userId;
@@ -30,7 +30,7 @@ public class TimeEntry {
         this.hours = hours;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
